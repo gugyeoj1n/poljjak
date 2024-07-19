@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Resources;
 
 public class GroundSpawner : MonoBehaviour
 {
     public static GroundSpawner instance;
     public GameObject prefab;
+    public GameObject holePrefab;
     public Transform groundCenter;
     public int gridSize;
     public float spacing;
@@ -35,13 +37,24 @@ public class GroundSpawner : MonoBehaviour
         float holeProbability = holeRatio / 100f;
         foreach (Vector3 position in positions)
         {
+            GameObject groundInstance = null;
             if(Random.value <= holeProbability)
+            {
                 if(position != Vector3.zero)
-                    continue;
+                    groundInstance = Instantiate( holePrefab, position + Vector3.up / 2f, Quaternion.identity );
+                else
+                {
+                    groundInstance = Instantiate( prefab, position, Quaternion.identity );
+                    groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
+                }
+            }
+            else
+            {
+                groundInstance = Instantiate( prefab, position, Quaternion.identity );
+                groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
+            }
             
-            GameObject instance = Instantiate( prefab, position, Quaternion.identity );
-            instance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
-            instance.transform.SetParent( groundCenter );
+            groundInstance.transform.SetParent( groundCenter );
         }
     }
     

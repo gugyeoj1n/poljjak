@@ -14,12 +14,9 @@ public class Detector : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay( Collision other )
+    private void OnTriggerEnter( Collider other )
     {
-        if( other.transform.CompareTag( "NumberCube" ) )
-        {
-            GameManager.instance.currentNumber = other.transform.GetComponent<NumberCube>( ).number;
-            IngameUIManager.instance.SetNumberText(  );
-        }
+        if(other.transform.CompareTag( "Hole" ))
+            GameManager.instance.GameOver(  );
     }
 }

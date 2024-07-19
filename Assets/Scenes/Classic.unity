@@ -1260,6 +1260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   currentNumber: 0
+  cam: {fileID: 2115797385}
 --- !u!4 &606843335
 Transform:
   m_ObjectHideFlags: 0
@@ -1499,10 +1500,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &1577185658
 GameObject:
@@ -1881,6 +1882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 3878881892955837234, guid: 4ef58d491ed2acd45a7329060b54b238, type: 3}
+  holePrefab: {fileID: 6224794615402763470, guid: 620d229dd0c79454c88f34aa1f68791d, type: 3}
   groundCenter: {fileID: 1860788285}
   gridSize: 25
   spacing: 1.2
