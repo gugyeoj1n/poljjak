@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class GroundSpawner : MonoBehaviour
 {
+    public static GroundSpawner instance;
     public GameObject prefab;
     public Transform groundCenter;
     public int gridSize;
@@ -10,9 +11,9 @@ public class GroundSpawner : MonoBehaviour
     public int maxNumber;
     public int holeRatio;
 
-    void Start( )
+    void Awake( )
     {
-        SpawnGround(  );
+        instance = this;
     }
 
     public void SpawnGround( )
