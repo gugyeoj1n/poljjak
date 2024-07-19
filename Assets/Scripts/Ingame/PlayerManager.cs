@@ -20,12 +20,7 @@ public class PlayerManager : MonoBehaviour
     {
         instance = this;
     }
-
-    public void M1( )
-    {
-        Move( Direction.LeftUp, 1, 1.2f );
-    }
-
+    
     public void Move( Direction direction, int distance, float space )
     {
         Vector3 directionVector;
