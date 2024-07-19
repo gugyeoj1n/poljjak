@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+    public GameObject character;
     public bool isMoving = false;
 
     public enum Direction
@@ -20,6 +22,11 @@ public class PlayerManager : MonoBehaviour
     void Awake( )
     {
         instance = this;
+    }
+
+    void Start( )
+    {
+        character = transform.GetChild( 0 ).GetChild( 0 ).gameObject;
     }
     
     public void Move( Direction direction, int distance, float space )
@@ -56,6 +63,8 @@ public class PlayerManager : MonoBehaviour
         float travelTime = 1.0f;
         float height = 2.0f;
 
+        character.transform.eulerAngles = GetRotationVector( direction );
+
         for( float t = 0; t < 1; t += Time.deltaTime / travelTime )
         {
             Vector3 currentPos = Vector3.Lerp( startPosition, endPosition, t );
@@ -66,5 +75,19 @@ public class PlayerManager : MonoBehaviour
 
         transform.position = endPosition;
         isMoving = false;
+    }
+
+    private Vector3 GetRotationVector( Vector3 direction )
+    {
+        if(direction.x != 0f)
+        {
+            if(direction.x < 0f)
+                return Vector3.up * -90f;
+            return Vector3.up * 90f;
+        }
+
+        if(direction.z < 0f)
+            return Vector3.up * 180f;
+        return Vector3.up;
     }
 }
