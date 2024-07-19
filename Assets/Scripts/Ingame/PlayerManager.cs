@@ -7,6 +7,7 @@ using Vector3 = UnityEngine.Vector3;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+    public bool isMoving = false;
 
     public enum Direction
     {
@@ -49,10 +50,12 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator MoveTransform( Vector3 direction, int distance )
     {
+        isMoving = true;
         for( int i = 0; i < distance; i++ )
         {
             transform.position += direction;
             yield return new WaitForSeconds( 1f );
         }
+        isMoving = false;
     }
 }

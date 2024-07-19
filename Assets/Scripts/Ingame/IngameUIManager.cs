@@ -40,22 +40,26 @@ public class IngameUIManager : MonoBehaviour
     {
         leftUpButton.onClick.AddListener( ( ) =>
         {
-            PlayerManager.instance.Move( PlayerManager.Direction.LeftUp, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
+            if( !PlayerManager.instance.isMoving )
+                PlayerManager.instance.Move( PlayerManager.Direction.LeftUp, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
         } );
         
         leftDownButton.onClick.AddListener( ( ) =>
         {
-            PlayerManager.instance.Move( PlayerManager.Direction.LeftDown, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
+            if( !PlayerManager.instance.isMoving )
+                PlayerManager.instance.Move( PlayerManager.Direction.LeftDown, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
         } );
         
         rightUpButton.onClick.AddListener( ( ) =>
         {
-            PlayerManager.instance.Move( PlayerManager.Direction.RightUp, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
+            if( !PlayerManager.instance.isMoving )
+                PlayerManager.instance.Move( PlayerManager.Direction.RightUp, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
         } );
         
         rightDownBUtton.onClick.AddListener( ( ) =>
         {
-            PlayerManager.instance.Move( PlayerManager.Direction.RightDown, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
+            if( !PlayerManager.instance.isMoving )
+                PlayerManager.instance.Move( PlayerManager.Direction.RightDown, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
         } );
     }
 }

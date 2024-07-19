@@ -7,7 +7,16 @@ public class Detector : MonoBehaviour
 {
     private void OnCollisionEnter( Collision other )
     {
-        if(other.transform.CompareTag( "NumberCube" ))
+        if( other.transform.CompareTag( "NumberCube" ) )
+        {
+            GameManager.instance.currentNumber = other.transform.GetComponent<NumberCube>( ).number;
+            IngameUIManager.instance.SetNumberText(  );
+        }
+    }
+
+    private void OnCollisionStay( Collision other )
+    {
+        if( other.transform.CompareTag( "NumberCube" ) )
         {
             GameManager.instance.currentNumber = other.transform.GetComponent<NumberCube>( ).number;
             IngameUIManager.instance.SetNumberText(  );
