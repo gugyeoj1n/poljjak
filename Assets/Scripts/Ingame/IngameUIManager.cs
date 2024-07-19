@@ -31,9 +31,8 @@ public class IngameUIManager : MonoBehaviour
         InitButtonInput(  );
     }
 
-    public void SetText( )
+    public void SetNumberText( )
     {
-        scoreText.text = GameManager.instance.score.ToString();
         currentNumberText.text = GameManager.instance.currentNumber.ToString( );
     }
 
