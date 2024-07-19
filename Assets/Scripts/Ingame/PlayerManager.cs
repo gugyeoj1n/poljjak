@@ -51,11 +51,20 @@ public class PlayerManager : MonoBehaviour
     IEnumerator MoveTransform( Vector3 direction, int distance )
     {
         isMoving = true;
-        for( int i = 0; i < distance; i++ )
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = startPosition + direction * distance;
+        float travelTime = 1.0f;
+        float height = 2.0f;
+
+        for( float t = 0; t < 1; t += Time.deltaTime / travelTime )
         {
-            transform.position += direction;
-            yield return new WaitForSeconds( 1f );
+            Vector3 currentPos = Vector3.Lerp( startPosition, endPosition, t );
+            currentPos.y = startPosition.y + height * Mathf.Sin( Mathf.PI * t );
+            transform.position = currentPos;
+            yield return null;
         }
+
+        transform.position = endPosition;
         isMoving = false;
     }
 }
