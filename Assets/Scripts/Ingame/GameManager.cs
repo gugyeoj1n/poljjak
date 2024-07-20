@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -68,5 +67,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds( 1.5f );
         Destroy( PlayerManager.instance.gameObject );
         IngameUIManager.instance.SetOverPanel(  );
+    }
+
+    public void RestartGame( )
+    {
+        SceneManager.LoadScene( "Classic" );
     }
 }
