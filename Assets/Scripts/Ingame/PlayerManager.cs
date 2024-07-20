@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
     public GameObject character;
     public bool isMoving = false;
-    private Animator animator;
+    public Animator animator;
 
     public enum Direction
     {

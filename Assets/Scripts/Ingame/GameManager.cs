@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOverAnimation( )
     {
+        PlayerManager.instance.animator.Play( "Fly" );
+        PlayerManager.instance.animator.Play( "Eyes_Cry" );
         PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = false;
         PlayerManager.instance.GetComponent<Rigidbody>( ).constraints = RigidbodyConstraints.FreezePositionY;
         gameOvercam.Priority = 11;
@@ -53,12 +55,17 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DestroyPlayer( )
     {
-        yield return new WaitForSeconds( 2f );
+        float blendTime = Camera.main.GetComponent<CinemachineBrain>( ).m_DefaultBlend.BlendTime;
+        yield return new WaitForSeconds( blendTime + 1f );
+        
+        //PlayerManager.instance.transform.LookAt( gameOvercam.transform );
+        
         PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = true;
         PlayerManager.instance.GetComponent<Rigidbody>( ).constraints = RigidbodyConstraints.None;
         gameOvercam.Follow = null;
         gameOvercam.LookAt = null;
-        yield return new WaitForSeconds( 2f );
+        yield return new WaitForSeconds( 1.5f );
         Destroy( PlayerManager.instance.gameObject );
+        IngameUIManager.instance.SetOverPanel(  );
     }
 }

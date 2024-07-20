@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -18,6 +19,7 @@ public class IngameUIManager : MonoBehaviour
 
     [Header( "ETC" )]
     public Button stopButton;
+    public GameObject overPanel;
 
     public static IngameUIManager instance;
 
@@ -66,5 +68,10 @@ public class IngameUIManager : MonoBehaviour
             if( !PlayerManager.instance.isMoving )
                 PlayerManager.instance.Move( PlayerManager.Direction.RightDown, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
         } );
+    }
+
+    public void SetOverPanel( )
+    {
+        overPanel.SetActive( true );
     }
 }
