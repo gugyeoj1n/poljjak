@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerManager.instance.animator.Play( "Fly" );
         PlayerManager.instance.animator.Play( "Eyes_Cry" );
+        PlayerManager.instance.character.transform.LookAt( gameOvercam.transform );
         PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = false;
         PlayerManager.instance.GetComponent<Rigidbody>( ).constraints = RigidbodyConstraints.FreezePositionY;
         gameOvercam.Priority = 11;

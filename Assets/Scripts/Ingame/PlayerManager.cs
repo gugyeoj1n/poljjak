@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
     public GameObject character;
-    public bool isMoving = false;
+    public bool isMoving = true;
     public Animator animator;
 
     public enum Direction
@@ -29,6 +29,12 @@ public class PlayerManager : MonoBehaviour
     {
         character = transform.GetChild( 0 ).GetChild( 0 ).gameObject;
         animator = character.GetComponent<Animator>( );
+    }
+
+    public IEnumerator InitPlayerInput( )
+    {
+        yield return new WaitForSeconds( 2.1f );
+        isMoving = false;
     }
     
     public void Move( Direction direction, int distance, float space )
@@ -59,6 +65,8 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator MoveTransform( Vector3 direction, int distance )
     {
+        Detector.instance.currentCube.StartDestroyCube(  );
+        
         isMoving = true;
         Vector3 startPosition = transform.position;
         Vector3 endPosition = startPosition + direction * distance;

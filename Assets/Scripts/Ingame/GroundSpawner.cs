@@ -21,6 +21,8 @@ public class GroundSpawner : MonoBehaviour
 
     public void SpawnGround( )
     {
+        StartCoroutine( PlayerManager.instance.InitPlayerInput( ) );
+        
         Vector3 gridCenter = new Vector3( ( gridSize - 1 ) * spacing / 2.0f, 0, ( gridSize - 1 ) * spacing / 2.0f );
         List<Vector3> positions = new List<Vector3>();
 

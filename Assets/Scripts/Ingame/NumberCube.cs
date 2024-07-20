@@ -20,4 +20,19 @@ public class NumberCube : MonoBehaviour
         number = Random.Range( 1, maxNumber + 1 );
         numberText.text = number.ToString( );
     }
+
+    public void StartDestroyCube( )
+    {
+        StartCoroutine( DestroyCube( ) );
+    }
+
+    private IEnumerator DestroyCube( )
+    {
+        Rigidbody rigidbody = GetComponent<Rigidbody>( );
+        rigidbody.useGravity = true;
+        rigidbody.isKinematic = false;
+        rigidbody.constraints = RigidbodyConstraints.None;
+        yield return new WaitForSeconds( 2f );
+        Destroy( this.gameObject );
+    }
 }
