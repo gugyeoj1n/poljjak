@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+    public GameObject character;
+    public bool isMoving = false;
 
     public enum Direction
     {
@@ -21,11 +24,11 @@ public class PlayerManager : MonoBehaviour
         instance = this;
     }
 
-    public void M1( )
+    void Start( )
     {
-        Move( Direction.LeftUp, 1, 1.2f );
+        character = transform.GetChild( 0 ).GetChild( 0 ).gameObject;
     }
-
+    
     public void Move( Direction direction, int distance, float space )
     {
         Vector3 directionVector;
@@ -54,10 +57,37 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator MoveTransform( Vector3 direction, int distance )
     {
-        for( int i = 0; i < distance; i++ )
+        isMoving = true;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = startPosition + direction * distance;
+        float travelTime = 1.0f;
+        float height = 2.0f;
+
+        character.transform.eulerAngles = GetRotationVector( direction );
+
+        for( float t = 0; t < 1; t += Time.deltaTime / travelTime )
         {
-            transform.position += direction;
-            yield return new WaitForSeconds( 1f );
+            Vector3 currentPos = Vector3.Lerp( startPosition, endPosition, t );
+            currentPos.y = startPosition.y + height * Mathf.Sin( Mathf.PI * t );
+            transform.position = currentPos;
+            yield return null;
         }
+
+        transform.position = endPosition;
+        isMoving = false;
+    }
+
+    private Vector3 GetRotationVector( Vector3 direction )
+    {
+        if(direction.x != 0f)
+        {
+            if(direction.x < 0f)
+                return Vector3.up * -90f;
+            return Vector3.up * 90f;
+        }
+
+        if(direction.z < 0f)
+            return Vector3.up * 180f;
+        return Vector3.up;
     }
 }
