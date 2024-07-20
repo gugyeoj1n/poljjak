@@ -9,7 +9,8 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
     public GameObject character;
-    public bool isMoving = false;
+    public bool isMoving = true;
+    public Animator animator;
 
     public enum Direction
     {
@@ -27,6 +28,13 @@ public class PlayerManager : MonoBehaviour
     void Start( )
     {
         character = transform.GetChild( 0 ).GetChild( 0 ).gameObject;
+        animator = character.GetComponent<Animator>( );
+    }
+
+    public IEnumerator InitPlayerInput( )
+    {
+        yield return new WaitForSeconds( 2.1f );
+        isMoving = false;
     }
     
     public void Move( Direction direction, int distance, float space )
@@ -57,13 +65,18 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator MoveTransform( Vector3 direction, int distance )
     {
+        Detector.instance.currentCube.StartDestroyCube(  );
+        
         isMoving = true;
         Vector3 startPosition = transform.position;
         Vector3 endPosition = startPosition + direction * distance;
         float travelTime = 1.0f;
-        float height = 2.0f;
+        float height = 3.0f;
 
         character.transform.eulerAngles = GetRotationVector( direction );
+        
+        animator.SetTrigger( "Jump" );
+        animator.speed = animator.GetCurrentAnimatorStateInfo( 0 ).length / travelTime;
 
         for( float t = 0; t < 1; t += Time.deltaTime / travelTime )
         {
@@ -74,6 +87,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         transform.position = endPosition;
+        animator.speed = 1f;
         isMoving = false;
     }
 
