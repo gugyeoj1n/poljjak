@@ -79,4 +79,10 @@ public class GroundSpawner : MonoBehaviour
             list[randomIndex] = temp;
         }
     }
+
+    public void SpawnHole( Vector3 pos )
+    {
+        GameObject holeInstance = Instantiate( holePrefab, pos, Quaternion.identity );
+        holeInstance.transform.SetParent( groundCenter );
+    }
 }
