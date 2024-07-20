@@ -17,6 +17,9 @@ public class Detector : MonoBehaviour
     private void OnTriggerEnter( Collider other )
     {
         if(other.transform.CompareTag( "Hole" ))
+        {
+            PlayerManager.instance.isMoving = true;
             GameManager.instance.GameOver(  );
+        }
     }
 }
