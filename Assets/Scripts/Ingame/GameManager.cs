@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public int currentNumber;
     public CinemachineVirtualCamera cam;
+    public bool isMovable = false;
 
     private void Awake( )
     {
@@ -19,6 +20,17 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GroundSpawner.instance.SpawnGround(  );
+    }
+
+    public void IncreaseScore(  )
+    {
+        if(!isMovable)
+        {
+            isMovable = true;
+            return;
+        }
+        score += currentNumber;
+        IngameUIManager.instance.SetScoreText(  );
     }
 
     public void GameOver( )

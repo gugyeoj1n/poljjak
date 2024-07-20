@@ -10,6 +10,7 @@ public class Detector : MonoBehaviour
         if( other.transform.CompareTag( "NumberCube" ) )
         {
             GameManager.instance.currentNumber = other.transform.GetComponent<NumberCube>( ).number;
+            GameManager.instance.IncreaseScore(  );
             IngameUIManager.instance.SetNumberText(  );
         }
     }
