@@ -19,7 +19,15 @@ public class IngameUIManager : MonoBehaviour
 
     [Header( "ETC" )]
     public Button stopButton;
+    
+    [Header( "Game Over" )]
     public GameObject overPanel;
+    public GameObject overText;
+    public TMP_Text overScoreText;
+    public Image[] homeButtonSprites;
+    public Image[] restartButtonSprites;
+    public Transform homeButtonTransform;
+    public Transform restartButtonTransform;
 
     public static IngameUIManager instance;
 
@@ -40,7 +48,7 @@ public class IngameUIManager : MonoBehaviour
 
     public void SetScoreText( )
     {
-        scoreText.text = GameManager.instance.score.ToString( );
+        scoreText.text = GameManager.instance.score + "점";
     }
 
     private void InitButtonInput( )
@@ -73,5 +81,16 @@ public class IngameUIManager : MonoBehaviour
     public void SetOverPanel( )
     {
         overPanel.SetActive( true );
+        var seq = DOTween.Sequence( );
+        seq.AppendInterval( 1f );
+        seq.Append( overText.transform.DOMove( overText.transform.position + Vector3.up * 100f, 1f ) );
+        seq.Append( overScoreText.DOText( string.Format( "{0}점", GameManager.instance.score ), 1f ) );
+        seq.Join( homeButtonSprites[0].DOFade( 1f, 0.6f ) );
+        seq.Join( homeButtonSprites[1].DOFade( 1f, 0.6f ) );
+        seq.Join( restartButtonSprites[0].DOFade( 1f, 0.6f ) );
+        seq.Join( restartButtonSprites[1].DOFade( 1f, 0.6f ) );
+        seq.Join( homeButtonTransform.DOMove( homeButtonTransform.position + Vector3.up * 20f, 0.4f ) );
+        seq.Join( restartButtonTransform.DOMove( restartButtonTransform.position + Vector3.up * 20f, 0.4f ) );
+        seq.Play( );
     }
 }
