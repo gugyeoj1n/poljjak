@@ -102,7 +102,7 @@ public class IngameUIManager : MonoBehaviour
         var seq = DOTween.Sequence( );
         seq.AppendInterval( 1f );
         seq.Append( overText.transform.DOMove( overText.transform.position + Vector3.up * 100f, 1f ) );
-        seq.Append( overScoreText.DOText( string.Format( "{0}점", GameManager.instance.score ), 1f ) );
+        seq.Append( overScoreText.DOText( string.Format( "{0}점을 기록했어요.", GameManager.instance.score ), 1f ) );
         seq.Join( homeButtonSprites[0].DOFade( 1f, 0.6f ) );
         seq.Join( homeButtonSprites[1].DOFade( 1f, 0.6f ) );
         seq.Join( restartButtonSprites[0].DOFade( 1f, 0.6f ) );
