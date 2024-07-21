@@ -95,6 +95,8 @@ public class GroundSpawner : MonoBehaviour
     
     public void CheckEmptyGround()
     {
+        if (GameManager.instance.score == 0) return;    
+        
         List<Vector3> empty = new List<Vector3>();
         Vector3 prevPos = PlayerManager.instance.transform.position;
         Vector3 centerPos = new Vector3( prevPos.x, 0, prevPos.z );
