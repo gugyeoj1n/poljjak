@@ -37,7 +37,10 @@ public class NumberCube : MonoBehaviour
         rigidbody.isKinematic = false;
         rigidbody.constraints = RigidbodyConstraints.None;
         yield return new WaitForSeconds( 2f );
-        Destroy( this.gameObject );
-        
+        rigidbody.useGravity = false;
+        rigidbody.isKinematic = true;
+        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        gameObject.SetActive( false );
+        GroundSpawner.instance.objectPool.Enqueue( gameObject );
     }
 }

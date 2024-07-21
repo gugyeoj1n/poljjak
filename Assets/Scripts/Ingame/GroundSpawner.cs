@@ -15,13 +15,14 @@ public class GroundSpawner : MonoBehaviour
     public float spacing;
     public int maxNumber;
     public int holeRatio;
-
+    public Queue<GameObject> objectPool;
     public List<Vector3> spawnedGround;
 
     void Awake( )
     {
         instance = this;
         spawnedGround = new List<Vector3>( );
+        objectPool = new Queue<GameObject>( );
     }
 
     public void SpawnGround( )
@@ -74,7 +75,18 @@ public class GroundSpawner : MonoBehaviour
 
     private GameObject AnimatedInstantiate( GameObject prefab, Vector3 position, Quaternion rotation )
     {
-        GameObject instance = Instantiate( prefab, position, rotation );
+        GameObject instance;
+        
+        if(objectPool.Count == 0)
+        {
+            instance = Instantiate( prefab, position, rotation );
+        }
+        else
+        {
+            instance = objectPool.Dequeue( );
+            instance.transform.position = position;
+            instance.SetActive( true );
+        }
         float animateTime = Random.Range( 1f, 2f );
         instance.transform.DOMove( instance.transform.position + Vector3.up * 3f, animateTime );
         return instance;
@@ -109,7 +121,6 @@ public class GroundSpawner : MonoBehaviour
             for (int z = -3; z <= 3; z++)
             {
                 Vector3 checkPos = FixVector( new Vector3(centerPos.x + x * spacing, centerPos.y, centerPos.z + z * spacing) );
-                Debug.Log( checkPos );
                 if(!spawnedGround.Contains( checkPos ))
                 {
                     SpawnObject( checkPos - Vector3.up * 3f );
