@@ -39,7 +39,8 @@ public class PlayerManager : MonoBehaviour
     
     public void Move( Direction direction, int distance, float space )
     {
-        Debug.Log( "GroundSpawner Pool : " + GroundSpawner.instance.objectPool.Count );
+        GameManager.instance.IncreaseScore(  );
+        IngameUIManager.instance.SetNumberText(  );
         Vector3 directionVector;
         
         switch( direction )

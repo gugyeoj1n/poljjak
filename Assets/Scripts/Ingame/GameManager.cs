@@ -25,11 +25,6 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseScore(  )
     {
-        if(!isMovable)
-        {
-            isMovable = true;
-            return;
-        }
         score += currentNumber;
         IngameUIManager.instance.SetScoreText(  );
     }
