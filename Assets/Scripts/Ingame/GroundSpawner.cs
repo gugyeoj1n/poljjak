@@ -16,9 +16,12 @@ public class GroundSpawner : MonoBehaviour
     public int maxNumber;
     public int holeRatio;
 
+    public List<Vector3> spawnedGround;
+
     void Awake( )
     {
         instance = this;
+        spawnedGround = new List<Vector3>( );
     }
 
     public void SpawnGround( )
@@ -41,6 +44,7 @@ public class GroundSpawner : MonoBehaviour
 
         foreach (Vector3 position in positions)
         {
+            spawnedGround.Add( FixVector( position ) + Vector3.up * 3f );
             SpawnObject( position );
         }
     }
@@ -97,7 +101,6 @@ public class GroundSpawner : MonoBehaviour
     {
         if (GameManager.instance.score == 0) return;    
         
-        List<Vector3> empty = new List<Vector3>();
         Vector3 prevPos = PlayerManager.instance.transform.position;
         Vector3 centerPos = new Vector3( prevPos.x, 0, prevPos.z );
         
@@ -105,15 +108,21 @@ public class GroundSpawner : MonoBehaviour
         {
             for (int z = -3; z <= 3; z++)
             {
-                Vector3 checkPos = new Vector3(centerPos.x + x * spacing, centerPos.y, centerPos.z + z * spacing);
-            
-                if (Physics.OverlapSphere( checkPos, spacing / 2f + 0.05f ).Length == 0)
+                Vector3 checkPos = FixVector( new Vector3(centerPos.x + x * spacing, centerPos.y, centerPos.z + z * spacing) );
+                Debug.Log( checkPos );
+                if(!spawnedGround.Contains( checkPos ))
                 {
                     SpawnObject( checkPos - Vector3.up * 3f );
+                    spawnedGround.Add( checkPos );
                 }
             }
         }
     }
-    
-    
+
+    private Vector3 FixVector( Vector3 prev )
+    {
+        float adjustedX = Mathf.Round(prev.x / spacing) * spacing;
+        float adjustedZ = Mathf.Round(prev.z / spacing) * spacing;
+        return new Vector3(adjustedX, prev.y, adjustedZ);
+    }
 }

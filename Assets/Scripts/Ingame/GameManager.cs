@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public CinemachineVirtualCamera cam;
     public CinemachineVirtualCamera gameOvercam;
     public bool isMovable = false;
+    public bool isOvered = false;
 
     private void Awake( )
     {
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver( )
     {
+        if(isOvered) return;
+        if(!isOvered) isOvered = true;
         cam.Follow = null;
         cam.Follow = null;
 
