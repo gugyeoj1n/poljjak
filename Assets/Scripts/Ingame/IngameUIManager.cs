@@ -49,6 +49,10 @@ public class IngameUIManager : MonoBehaviour
     public void SetScoreText( )
     {
         scoreText.text = GameManager.instance.score + "점";
+        scoreText.DOScale( 1.15f, 0.5f ).OnComplete( ( ) =>
+        {
+            scoreText.DOScale( 1f, 0.2f );
+        } );
     }
 
     private void InitButtonInput( )
