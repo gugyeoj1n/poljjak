@@ -538,6 +538,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 1071379719}
     m_Modifications:
     - target: {fileID: 4992758198669102562, guid: 84b7c8441f160174fa5c6f94cf397f0a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4992758198669102562, guid: 84b7c8441f160174fa5c6f94cf397f0a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4992758198669102562, guid: 84b7c8441f160174fa5c6f94cf397f0a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4992758198669102562, guid: 84b7c8441f160174fa5c6f94cf397f0a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1246,7 +1258,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -3122,7 +3134,7 @@ MonoBehaviour:
   prefab: {fileID: 3878881892955837234, guid: 4ef58d491ed2acd45a7329060b54b238, type: 3}
   holePrefab: {fileID: 6224794615402763470, guid: 620d229dd0c79454c88f34aa1f68791d, type: 3}
   groundCenter: {fileID: 1860788285}
-  gridSize: 25
+  gridSize: 11
   spacing: 1.2
   maxNumber: 5
   holeRatio: 20
