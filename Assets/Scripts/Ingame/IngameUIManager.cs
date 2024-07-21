@@ -86,12 +86,12 @@ public class IngameUIManager : MonoBehaviour
     private void StartAnimation( )
     {
         var seq = DOTween.Sequence( );
-        seq.Append( leftDownButton.transform.DOMove( leftDownButton.transform.position + Vector3.up * 200f, 2f ) );
-        seq.Join( rightDownBUtton.transform.DOMove( rightDownBUtton.transform.position + Vector3.up * 200f, 2f ) );
-        seq.Join( leftUpButton.transform.DOMove( leftUpButton.transform.position + Vector3.up * 400f, 2f ) );
-        seq.Join( rightUpButton.transform.DOMove( rightUpButton.transform.position + Vector3.up * 400f, 2f ) );
-        seq.Join( scoreText.transform.DOMove( scoreText.transform.position - Vector3.up * 100f, 2f ) );
-        seq.Join( currentNumberText.transform.DOMove( currentNumberText.transform.position - Vector3.up * 200f, 2f ) );
+        seq.Append( leftDownButton.transform.DOMove( leftDownButton.transform.position + Vector3.up * 300f, 2f ) );
+        seq.Join( rightDownBUtton.transform.DOMove( rightDownBUtton.transform.position + Vector3.up * 300f, 2f ) );
+        seq.Join( leftUpButton.transform.DOMove( leftUpButton.transform.position + Vector3.up * 500f, 2f ) );
+        seq.Join( rightUpButton.transform.DOMove( rightUpButton.transform.position + Vector3.up * 500f, 2f ) );
+        seq.Join( scoreText.transform.DOMove( scoreText.transform.position - Vector3.up * 125f, 2f ) );
+        seq.Join( currentNumberText.transform.DOMove( currentNumberText.transform.position - Vector3.up * 225f, 2f ) );
         seq.Join( stopButton.transform.DOMove( stopButton.transform.position - Vector3.right * 100f, 2f ) );
         seq.Play( );
     }
