@@ -29,7 +29,8 @@ public class NumberCube : MonoBehaviour
     private IEnumerator DestroyCube( )
     {
         Vector3 prevPos = this.transform.position;
-        
+        GroundSpawner.instance.SpawnHole( prevPos );
+
         Rigidbody rigidbody = GetComponent<Rigidbody>( );
         rigidbody.useGravity = true;
         rigidbody.isKinematic = false;
@@ -37,6 +38,5 @@ public class NumberCube : MonoBehaviour
         yield return new WaitForSeconds( 2f );
         Destroy( this.gameObject );
         
-        GroundSpawner.instance.SpawnHole( prevPos );
     }
 }

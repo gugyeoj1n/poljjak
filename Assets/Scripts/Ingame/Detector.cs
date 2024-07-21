@@ -21,6 +21,8 @@ public class Detector : MonoBehaviour
             GameManager.instance.currentNumber = other.transform.GetComponent<NumberCube>( ).number;
             GameManager.instance.IncreaseScore(  );
             IngameUIManager.instance.SetNumberText(  );
+            
+            GroundSpawner.instance.CheckEmptyGround(  );
         }
     }
 

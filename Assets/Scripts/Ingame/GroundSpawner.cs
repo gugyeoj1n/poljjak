@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Resources;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class GroundSpawner : MonoBehaviour
 {
@@ -37,28 +39,33 @@ public class GroundSpawner : MonoBehaviour
         
         Shuffle(positions);
 
-        float holeProbability = holeRatio / 100f;
         foreach (Vector3 position in positions)
         {
-            GameObject groundInstance = null;
-            if(Random.value <= holeProbability)
-            {
-                if(position != Vector3.down * 3f)
-                    groundInstance = AnimatedInstantiate( holePrefab, position + Vector3.up / 2f, Quaternion.identity );
-                else
-                {
-                    groundInstance = AnimatedInstantiate( prefab, position, Quaternion.identity );
-                    groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
-                }
-            }
+            SpawnObject( position );
+        }
+    }
+
+    private void SpawnObject( Vector3 pos )
+    {
+        float holeProbability = holeRatio / 100f;
+        GameObject groundInstance = null;
+        if(Random.value <= holeProbability)
+        {
+            if(pos != Vector3.down * 3f)
+                groundInstance = AnimatedInstantiate( holePrefab, pos + Vector3.up / 2f, Quaternion.identity );
             else
             {
-                groundInstance = AnimatedInstantiate( prefab, position, Quaternion.identity );
+                groundInstance = AnimatedInstantiate( prefab, pos, Quaternion.identity );
                 groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
             }
-            
-            groundInstance.transform.SetParent( groundCenter );
         }
+        else
+        {
+            groundInstance = AnimatedInstantiate( prefab, pos, Quaternion.identity );
+            groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
+        }
+            
+        groundInstance.transform.SetParent( groundCenter );
     }
 
     private GameObject AnimatedInstantiate( GameObject prefab, Vector3 position, Quaternion rotation )
@@ -85,4 +92,26 @@ public class GroundSpawner : MonoBehaviour
         GameObject holeInstance = Instantiate( holePrefab, pos, Quaternion.identity );
         holeInstance.transform.SetParent( groundCenter );
     }
+    
+    public void CheckEmptyGround()
+    {
+        List<Vector3> empty = new List<Vector3>();
+        Vector3 prevPos = PlayerManager.instance.transform.position;
+        Vector3 centerPos = new Vector3( prevPos.x, 0, prevPos.z );
+        
+        for (int x = -3; x <= 3; x++)
+        {
+            for (int z = -3; z <= 3; z++)
+            {
+                Vector3 checkPos = new Vector3(centerPos.x + x * spacing, centerPos.y, centerPos.z + z * spacing);
+            
+                if (Physics.OverlapSphere( checkPos, spacing / 2f + 0.05f ).Length == 0)
+                {
+                    SpawnObject( checkPos - Vector3.up * 3f );
+                }
+            }
+        }
+    }
+    
+    
 }
