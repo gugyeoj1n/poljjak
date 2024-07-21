@@ -39,6 +39,7 @@ public class IngameUIManager : MonoBehaviour
     void Start()
     {
         InitButtonInput(  );
+        StartAnimation(  );
     }
 
     public void SetNumberText( )
@@ -80,6 +81,19 @@ public class IngameUIManager : MonoBehaviour
             if( !PlayerManager.instance.isMoving )
                 PlayerManager.instance.Move( PlayerManager.Direction.RightDown, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
         } );
+    }
+
+    private void StartAnimation( )
+    {
+        var seq = DOTween.Sequence( );
+        seq.Append( leftDownButton.transform.DOMove( leftDownButton.transform.position + Vector3.up * 200f, 2f ) );
+        seq.Join( rightDownBUtton.transform.DOMove( rightDownBUtton.transform.position + Vector3.up * 200f, 2f ) );
+        seq.Join( leftUpButton.transform.DOMove( leftUpButton.transform.position + Vector3.up * 400f, 2f ) );
+        seq.Join( rightUpButton.transform.DOMove( rightUpButton.transform.position + Vector3.up * 400f, 2f ) );
+        seq.Join( scoreText.transform.DOMove( scoreText.transform.position - Vector3.up * 100f, 2f ) );
+        seq.Join( currentNumberText.transform.DOMove( currentNumberText.transform.position - Vector3.up * 200f, 2f ) );
+        seq.Join( stopButton.transform.DOMove( stopButton.transform.position - Vector3.right * 100f, 2f ) );
+        seq.Play( );
     }
 
     public void SetOverPanel( )
