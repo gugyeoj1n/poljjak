@@ -17,10 +17,10 @@ public class Detector : MonoBehaviour
     {
         if( other.transform.CompareTag( "NumberCube" ) )
         {
-            currentCube = other.transform.GetComponent<NumberCube>(  );
             GameManager.instance.currentNumber = other.transform.GetComponent<NumberCube>( ).number;
-            GameManager.instance.IncreaseScore(  );
-            IngameUIManager.instance.SetNumberText(  );
+            IngameUIManager.instance.SetNumberText( );
+            currentCube = other.transform.GetComponent<NumberCube>(  );
+            GroundSpawner.instance.CheckEmptyGround(  );
         }
     }
 

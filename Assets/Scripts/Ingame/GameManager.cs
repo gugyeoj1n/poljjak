@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +10,9 @@ public class GameManager : MonoBehaviour
     public int currentNumber;
     public CinemachineVirtualCamera cam;
     public CinemachineVirtualCamera gameOvercam;
+    public CinemachineVirtualCamera lobbyCam;
     public bool isMovable = false;
+    public bool isOvered = false;
 
     private void Awake( )
     {
@@ -20,22 +21,28 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        GroundSpawner.instance.SpawnGround(  );
+        
     }
 
+    public void StartGame( )
+    {
+        IngameUIManager.instance.startButton.SetActive( false );
+        IngameUIManager.instance.StartAnimation(  );
+        lobbyCam.gameObject.SetActive( false );
+        GroundSpawner.instance.SpawnGround(  );
+        PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = true;
+    }
+    
     public void IncreaseScore(  )
     {
-        if(!isMovable)
-        {
-            isMovable = true;
-            return;
-        }
         score += currentNumber;
         IngameUIManager.instance.SetScoreText(  );
     }
 
     public void GameOver( )
     {
+        if(isOvered) return;
+        if(!isOvered) isOvered = true;
         cam.Follow = null;
         cam.Follow = null;
 
@@ -52,7 +59,8 @@ public class GameManager : MonoBehaviour
         gameOvercam.Priority = 11;
         StartCoroutine( DestroyPlayer( ) );
     }
-
+    
+    
 
     private IEnumerator DestroyPlayer( )
     {
@@ -68,5 +76,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds( 1.5f );
         Destroy( PlayerManager.instance.gameObject );
         IngameUIManager.instance.SetOverPanel(  );
+    }
+
+    public void RestartGame( )
+    {
+        SceneManager.LoadScene( "Classic" );
     }
 }

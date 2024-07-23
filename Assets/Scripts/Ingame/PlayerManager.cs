@@ -39,6 +39,8 @@ public class PlayerManager : MonoBehaviour
     
     public void Move( Direction direction, int distance, float space )
     {
+        GameManager.instance.IncreaseScore(  );
+        IngameUIManager.instance.SetNumberText(  );
         Vector3 directionVector;
         
         switch( direction )

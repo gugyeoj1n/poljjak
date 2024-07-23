@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Resources;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class GroundSpawner : MonoBehaviour
 {
@@ -13,10 +15,14 @@ public class GroundSpawner : MonoBehaviour
     public float spacing;
     public int maxNumber;
     public int holeRatio;
+    public Queue<GameObject> objectPool;
+    public List<Vector3> spawnedGround;
 
     void Awake( )
     {
         instance = this;
+        spawnedGround = new List<Vector3>( );
+        objectPool = new Queue<GameObject>( );
     }
 
     public void SpawnGround( )
@@ -37,33 +43,50 @@ public class GroundSpawner : MonoBehaviour
         
         Shuffle(positions);
 
-        float holeProbability = holeRatio / 100f;
         foreach (Vector3 position in positions)
         {
-            GameObject groundInstance = null;
-            if(Random.value <= holeProbability)
-            {
-                if(position != Vector3.down * 3f)
-                    groundInstance = AnimatedInstantiate( holePrefab, position + Vector3.up / 2f, Quaternion.identity );
-                else
-                {
-                    groundInstance = AnimatedInstantiate( prefab, position, Quaternion.identity );
-                    groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
-                }
-            }
+            spawnedGround.Add( FixVector( position ) + Vector3.up * 3f );
+            SpawnObject( position );
+        }
+    }
+
+    private void SpawnObject( Vector3 pos )
+    {
+        float holeProbability = holeRatio / 100f;
+        GameObject groundInstance = null;
+        if(Random.value <= holeProbability)
+        {
+            if(pos != Vector3.down * 3f)
+                groundInstance = AnimatedInstantiate( holePrefab, pos + Vector3.up / 2f, Quaternion.identity );
             else
             {
-                groundInstance = AnimatedInstantiate( prefab, position, Quaternion.identity );
+                groundInstance = AnimatedInstantiate( prefab, pos, Quaternion.identity );
                 groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
             }
-            
-            groundInstance.transform.SetParent( groundCenter );
         }
+        else
+        {
+            groundInstance = AnimatedInstantiate( prefab, pos, Quaternion.identity );
+            groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
+        }
+            
+        groundInstance.transform.SetParent( groundCenter );
     }
 
     private GameObject AnimatedInstantiate( GameObject prefab, Vector3 position, Quaternion rotation )
     {
-        GameObject instance = Instantiate( prefab, position, rotation );
+        GameObject instance;
+        
+        if(objectPool.Count == 0)
+        {
+            instance = Instantiate( prefab, position, rotation );
+        }
+        else
+        {
+            instance = objectPool.Dequeue( );
+            instance.transform.position = position;
+            instance.SetActive( true );
+        }
         float animateTime = Random.Range( 1f, 2f );
         instance.transform.DOMove( instance.transform.position + Vector3.up * 3f, animateTime );
         return instance;
@@ -84,5 +107,33 @@ public class GroundSpawner : MonoBehaviour
     {
         GameObject holeInstance = Instantiate( holePrefab, pos, Quaternion.identity );
         holeInstance.transform.SetParent( groundCenter );
+    }
+    
+    public void CheckEmptyGround()
+    {
+        if (GameManager.instance.score == 0) return;    
+        
+        Vector3 prevPos = PlayerManager.instance.transform.position;
+        Vector3 centerPos = new Vector3( prevPos.x, 0, prevPos.z );
+        
+        for (int x = -3; x <= 3; x++)
+        {
+            for (int z = -3; z <= 3; z++)
+            {
+                Vector3 checkPos = FixVector( new Vector3(centerPos.x + x * spacing, centerPos.y, centerPos.z + z * spacing) );
+                if(!spawnedGround.Contains( checkPos ))
+                {
+                    SpawnObject( checkPos - Vector3.up * 3f );
+                    spawnedGround.Add( checkPos );
+                }
+            }
+        }
+    }
+
+    private Vector3 FixVector( Vector3 prev )
+    {
+        float adjustedX = Mathf.Round(prev.x / spacing) * spacing;
+        float adjustedZ = Mathf.Round(prev.z / spacing) * spacing;
+        return new Vector3(adjustedX, prev.y, adjustedZ);
     }
 }
