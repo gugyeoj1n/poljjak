@@ -30,6 +30,9 @@ public class IngameUIManager : MonoBehaviour
     public Transform restartButtonTransform;
 
     public static IngameUIManager instance;
+    
+    // TEST
+    public GameObject startButton;
 
     void Awake( )
     {
@@ -39,7 +42,6 @@ public class IngameUIManager : MonoBehaviour
     void Start()
     {
         InitButtonInput(  );
-        StartAnimation(  );
     }
 
     public void SetNumberText( )
@@ -83,7 +85,7 @@ public class IngameUIManager : MonoBehaviour
         } );
     }
 
-    private void StartAnimation( )
+    public void StartAnimation( )
     {
         var seq = DOTween.Sequence( );
         seq.Append( leftDownButton.transform.DOMove( leftDownButton.transform.position + Vector3.up * 300f, 2f ) );

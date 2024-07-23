@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int currentNumber;
     public CinemachineVirtualCamera cam;
     public CinemachineVirtualCamera gameOvercam;
+    public CinemachineVirtualCamera lobbyCam;
     public bool isMovable = false;
     public bool isOvered = false;
 
@@ -20,9 +21,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        GroundSpawner.instance.SpawnGround(  );
+        
     }
 
+    public void StartGame( )
+    {
+        IngameUIManager.instance.startButton.SetActive( false );
+        IngameUIManager.instance.StartAnimation(  );
+        lobbyCam.gameObject.SetActive( false );
+        GroundSpawner.instance.SpawnGround(  );
+        PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = true;
+    }
+    
     public void IncreaseScore(  )
     {
         score += currentNumber;
@@ -49,7 +59,8 @@ public class GameManager : MonoBehaviour
         gameOvercam.Priority = 11;
         StartCoroutine( DestroyPlayer( ) );
     }
-
+    
+    
 
     private IEnumerator DestroyPlayer( )
     {
