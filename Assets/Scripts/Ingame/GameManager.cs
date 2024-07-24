@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         IngameUIManager.instance.StartAnimation(  );
         lobbyCam.gameObject.SetActive( false );
         GroundSpawner.instance.SpawnGround(  );
+        CloudManager.instance.DestroyAllClouds(  );
         PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = true;
     }
     
