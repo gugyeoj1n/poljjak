@@ -7,11 +7,18 @@ using UnityEngine.Networking;
 
 public class IngameUIManager : MonoBehaviour
 {
+    [Header( "Lobby Objects" )]
+    public Transform topBar;
+    public Transform navigationBar;
+    
+    [Header( "Home UI Objects" )]
+    public GameObject homeWindow;
+    
     [Header( "Input Buttons" )]
     public Button leftUpButton;
     public Button leftDownButton;
     public Button rightUpButton;
-    public Button rightDownBUtton;
+    public Button rightDownButton;
 
     [Header( "Texts" )]
     public TMP_Text scoreText;
@@ -78,7 +85,7 @@ public class IngameUIManager : MonoBehaviour
                 PlayerManager.instance.Move( PlayerManager.Direction.RightUp, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
         } );
         
-        rightDownBUtton.onClick.AddListener( ( ) =>
+        rightDownButton.onClick.AddListener( ( ) =>
         {
             if( !PlayerManager.instance.isMoving )
                 PlayerManager.instance.Move( PlayerManager.Direction.RightDown, GameManager.instance.currentNumber, GroundSpawner.instance.spacing );
@@ -87,15 +94,23 @@ public class IngameUIManager : MonoBehaviour
 
     public void StartAnimation( )
     {
+        homeWindow.SetActive( false );
+        
         var seq = DOTween.Sequence( );
-        seq.Append( leftDownButton.transform.DOMove( leftDownButton.transform.position + Vector3.up * 300f, 2f ) );
-        seq.Join( rightDownBUtton.transform.DOMove( rightDownBUtton.transform.position + Vector3.up * 300f, 2f ) );
-        seq.Join( leftUpButton.transform.DOMove( leftUpButton.transform.position + Vector3.up * 500f, 2f ) );
-        seq.Join( rightUpButton.transform.DOMove( rightUpButton.transform.position + Vector3.up * 500f, 2f ) );
-        seq.Join( scoreText.transform.DOMove( scoreText.transform.position - Vector3.up * 125f, 2f ) );
-        seq.Join( currentNumberText.transform.DOMove( currentNumberText.transform.position - Vector3.up * 225f, 2f ) );
-        seq.Join( stopButton.transform.DOMove( stopButton.transform.position - Vector3.right * 100f, 2f ) );
+        seq.Append( topBar.DOMove( topBar.position + Vector3.up * 150f, 1f ) );
+        seq.Join( navigationBar.DOMove( navigationBar.position - Vector3.up * 250f, 1f ) );
+        
+        var seq2 = DOTween.Sequence( );
+        seq2.Append( leftDownButton.transform.DOMove( leftDownButton.transform.position + Vector3.up * 300f, 2f ) );
+        seq2.Join( rightDownButton.transform.DOMove( rightDownButton.transform.position + Vector3.up * 300f, 2f ) );
+        seq2.Join( leftUpButton.transform.DOMove( leftUpButton.transform.position + Vector3.up * 500f, 2f ) );
+        seq2.Join( rightUpButton.transform.DOMove( rightUpButton.transform.position + Vector3.up * 500f, 2f ) );
+        seq2.Join( scoreText.transform.DOMove( scoreText.transform.position - Vector3.up * 125f, 2f ) );
+        seq2.Join( currentNumberText.transform.DOMove( currentNumberText.transform.position - Vector3.up * 225f, 2f ) );
+        seq2.Join( stopButton.transform.DOMove( stopButton.transform.position - Vector3.right * 100f, 2f ) );
+
         seq.Play( );
+        seq2.Play( );
     }
 
     public void SetOverPanel( )
