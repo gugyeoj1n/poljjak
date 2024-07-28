@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        GroundSpawner.instance.SpawnGround(  );
     }
 
     public void StartGame( )
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         IngameUIManager.instance.startButton.SetActive( false );
         IngameUIManager.instance.StartAnimation(  );
         lobbyCam.gameObject.SetActive( false );
-        GroundSpawner.instance.SpawnGround(  );
+        CloudManager.instance.DestroyAllClouds(  );
         PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = true;
     }
     
