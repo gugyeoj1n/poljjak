@@ -13,6 +13,10 @@ public class UIManager : MonoBehaviour
     
     [Header( "Home UI Objects" )]
     public GameObject homeWindow;
+
+    [Header( "Navigation Objects" )]
+    public Button[] navigationButtons;
+    public GameObject[] windows;
     
     [Header( "Input Buttons" )]
     public Button leftUpButton;
@@ -49,6 +53,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         InitButtonInput( );
+        InitNavigationButtons( );
         StartButtonAnimation( );
     }
 
@@ -57,6 +62,25 @@ public class UIManager : MonoBehaviour
         startButton.transform.DOMoveY( startButton.transform.position.y + 30f, 2f )
             .SetLoops( -1, LoopType.Yoyo )
             .SetEase( Ease.InOutSine );
+    }
+
+    private void InitNavigationButtons( )
+    {
+        for(int i = 0; i < navigationButtons.Length; i++)
+        {
+            int idx = i;
+            navigationButtons[idx].onClick.AddListener( ( ) =>
+            {
+                OnNavigationClicked( idx );
+            } );
+        }
+    }
+
+    private void OnNavigationClicked( int idx )
+    {
+        foreach(GameObject obj in windows)
+            obj.SetActive( false );
+        windows[idx].SetActive( true );
     }
 
     public void SetNumberText( )

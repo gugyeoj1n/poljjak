@@ -13786,6 +13786,18 @@ MonoBehaviour:
   topBar: {fileID: 617548860}
   navigationBar: {fileID: 774520587}
   homeWindow: {fileID: 611956038}
+  navigationButtons:
+  - {fileID: 1194767499}
+  - {fileID: 1183182357}
+  - {fileID: 1623250425}
+  - {fileID: 1133996162}
+  - {fileID: 682609172}
+  windows:
+  - {fileID: 453370560}
+  - {fileID: 2012272190}
+  - {fileID: 611956038}
+  - {fileID: 913152788}
+  - {fileID: 1290822690}
   leftUpButton: {fileID: 888785062}
   leftDownButton: {fileID: 1779639666}
   rightUpButton: {fileID: 1684439330}
