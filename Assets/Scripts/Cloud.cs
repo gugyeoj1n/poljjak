@@ -9,7 +9,7 @@ public class Cloud : MonoBehaviour
     
     void Start()
     {
-        speed = Random.Range( 0.3f, 1f );
+        speed = Random.Range( 0.1f, 0.5f );
     }
 
     void Update( )

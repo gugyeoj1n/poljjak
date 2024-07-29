@@ -129,7 +129,7 @@ public class UIManager : MonoBehaviour
         homeWindow.SetActive( false );
         
         var seq = DOTween.Sequence( );
-        seq.Append( topBar.DOMove( topBar.position + Vector3.up * 150f, 1f ) );
+        seq.Append( topBar.DOMove( topBar.position + Vector3.up * 200f, 1f ) );
         seq.Join( navigationBar.DOMove( navigationBar.position - Vector3.up * 250f, 1f ) );
         
         var seq2 = DOTween.Sequence( );

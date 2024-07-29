@@ -27,7 +27,7 @@ public class CloudManager : MonoBehaviour
     {
         if(other.CompareTag( "Cloud" ))
         {
-            other.transform.position = cloudStart.position;
+            other.transform.position = new Vector3(other.transform.position.x, cloudStart.position.y, cloudStart.position.z);
         }
     }
 
