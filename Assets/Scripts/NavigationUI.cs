@@ -13,6 +13,9 @@ public class NavigationUI : MonoBehaviour
         rect.offsetMax = new Vector2( -margin, rect.offsetMax.y );
 
         float cellWidth = rect.rect.width / 6f;
+        if(cellWidth > rect.rect.height)
+            cellWidth = rect.rect.height - 20f;
+        
         Debug.Log(cellWidth + " / " + rect.rect.width );
         foreach(RectTransform child in rect)
         {
