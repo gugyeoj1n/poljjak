@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame( )
     {
-        IngameUIManager.instance.startButton.SetActive( false );
-        IngameUIManager.instance.StartAnimation(  );
+        UIManager.instance.startButton.SetActive( false );
+        UIManager.instance.StartAnimation(  );
         lobbyCam.gameObject.SetActive( false );
         CloudManager.instance.DestroyAllClouds(  );
         PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = true;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(  )
     {
         score += currentNumber;
-        IngameUIManager.instance.SetScoreText(  );
+        UIManager.instance.SetScoreText(  );
     }
 
     public void GameOver( )
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         gameOvercam.LookAt = null;
         yield return new WaitForSeconds( 1.5f );
         Destroy( PlayerManager.instance.gameObject );
-        IngameUIManager.instance.SetOverPanel(  );
+        UIManager.instance.SetOverPanel(  );
     }
 
     public void RestartGame( )

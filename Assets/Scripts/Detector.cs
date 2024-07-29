@@ -18,7 +18,7 @@ public class Detector : MonoBehaviour
         if( other.transform.CompareTag( "NumberCube" ) )
         {
             GameManager.instance.currentNumber = other.transform.GetComponent<NumberCube>( ).number;
-            IngameUIManager.instance.SetNumberText( );
+            UIManager.instance.SetNumberText( );
             currentCube = other.transform.GetComponent<NumberCube>(  );
             GroundSpawner.instance.CheckEmptyGround(  );
         }

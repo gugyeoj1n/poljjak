@@ -5,7 +5,7 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.Networking;
 
-public class IngameUIManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     [Header( "Lobby Objects" )]
     public Transform topBar;
@@ -36,7 +36,7 @@ public class IngameUIManager : MonoBehaviour
     public Transform homeButtonTransform;
     public Transform restartButtonTransform;
 
-    public static IngameUIManager instance;
+    public static UIManager instance;
     
     // TEST
     public GameObject startButton;
@@ -48,7 +48,15 @@ public class IngameUIManager : MonoBehaviour
     
     void Start()
     {
-        InitButtonInput(  );
+        InitButtonInput( );
+        StartButtonAnimation( );
+    }
+
+    private void StartButtonAnimation( )
+    {
+        startButton.transform.DOMoveY( startButton.transform.position.y + 30f, 2f )
+            .SetLoops( -1, LoopType.Yoyo )
+            .SetEase( Ease.InOutSine );
     }
 
     public void SetNumberText( )
