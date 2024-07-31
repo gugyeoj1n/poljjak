@@ -49,7 +49,6 @@ public class AdManager : MonoBehaviour
                           + ad.GetResponseInfo());
 
                 _rewardedInterstitialAd = ad;
-                ShowRewardedInterstitialAd( );
             });
     }
     
@@ -64,6 +63,7 @@ public class AdManager : MonoBehaviour
             {
                 // TODO: Reward the user.
                 Debug.Log(string.Format(rewardMsg, reward.Type, reward.Amount));
+                GameManager.instance.Revive(  );
             });
         }
     }

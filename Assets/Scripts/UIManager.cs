@@ -162,4 +162,9 @@ public class UIManager : MonoBehaviour
         seq.Join( restartButtonTransform.DOMove( restartButtonTransform.position + Vector3.up * 20f, 0.4f ) );
         seq.Play( );
     }
+
+    public void DeactiveOverPanel( )
+    {
+        overPanel.SetActive( false );
+    }
 }

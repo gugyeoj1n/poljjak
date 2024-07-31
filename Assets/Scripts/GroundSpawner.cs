@@ -17,11 +17,13 @@ public class GroundSpawner : MonoBehaviour
     public int holeRatio;
     public Queue<GameObject> objectPool;
     public List<Vector3> spawnedGround;
+    public List<Vector3> onlyGround;
 
     void Awake( )
     {
         instance = this;
         spawnedGround = new List<Vector3>( );
+        onlyGround = new List<Vector3>( );
         objectPool = new Queue<GameObject>( );
     }
 
@@ -60,12 +62,14 @@ public class GroundSpawner : MonoBehaviour
                 groundInstance = AnimatedInstantiate( holePrefab, pos + Vector3.up / 2f, Quaternion.identity );
             else
             {
+                onlyGround.Add( pos );
                 groundInstance = AnimatedInstantiate( prefab, pos, Quaternion.identity );
                 groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
             }
         }
         else
         {
+            onlyGround.Add( pos );
             groundInstance = AnimatedInstantiate( prefab, pos, Quaternion.identity );
             groundInstance.GetComponent<NumberCube>(  ).SetNumber( maxNumber );
         }
@@ -128,6 +132,12 @@ public class GroundSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    public Vector3 GetRandomGround( )
+    {
+        int randIdx = Random.Range( 0, onlyGround.Count );
+        return onlyGround[randIdx] + Vector3.up * 4.5f;
     }
 
     private Vector3 FixVector( Vector3 prev )

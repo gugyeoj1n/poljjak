@@ -74,12 +74,31 @@ public class GameManager : MonoBehaviour
         gameOvercam.Follow = null;
         gameOvercam.LookAt = null;
         yield return new WaitForSeconds( 1.5f );
-        Destroy( PlayerManager.instance.gameObject );
+        PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = false;
+        PlayerManager.instance.GetComponent<Rigidbody>( ).constraints = RigidbodyConstraints.FreezePositionY;
+        // Destroy( PlayerManager.instance.gameObject );
         UIManager.instance.SetOverPanel(  );
     }
 
+    public void Revive( )
+    {
+        PlayerManager.instance.GetComponent<Transform>( ).position = GroundSpawner.instance.GetRandomGround( );
+        PlayerManager.instance.GetComponent<Rigidbody>( ).constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        PlayerManager.instance.GetComponent<Rigidbody>( ).velocity = Vector3.zero;
+        PlayerManager.instance.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        PlayerManager.instance.animator.Play( "Idle_A" );
+        PlayerManager.instance.animator.Play( "Eyes_Blink" );
+        PlayerManager.instance.character.transform.rotation = Quaternion.identity;
+        UIManager.instance.DeactiveOverPanel( );
+        gameOvercam.Follow = PlayerManager.instance.GetComponent<Transform>(  );
+        gameOvercam.LookAt = PlayerManager.instance.GetComponent<Transform>(  );
+        cam.Follow = PlayerManager.instance.GetComponent<Transform>( );
+        cam.LookAt = PlayerManager.instance.GetComponent<Transform>( );
+        gameOvercam.Priority = 1;
+    }
+    
     public void RestartGame( )
     {
-        SceneManager.LoadScene( "Classic" );
+        SceneManager.LoadScene( "Main 1" );
     }
 }

@@ -522,7 +522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uAC70\uC5B8\uC81C\uBC14\uAFB8\uB0D0"
+  m_text: "\uAC8C\uC784\uC81C\uBAA9\uC784"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cc3b0a66887404b4d86e305a154e53d8, type: 2}
   m_sharedMaterial: {fileID: 7301314505519755293, guid: cc3b0a66887404b4d86e305a154e53d8, type: 2}
@@ -11561,7 +11561,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2011004410}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
@@ -12279,7 +12279,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1010626296}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1894429896}
+        m_TargetAssemblyTypeName: AdManager, Assembly-CSharp
+        m_MethodName: ShowRewardedInterstitialAd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1010626295
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12544,6 +12556,7 @@ MonoBehaviour:
   maxNumber: 5
   holeRatio: 20
   spawnedGround: []
+  onlyGround: []
 --- !u!4 &1029907701
 Transform:
   m_ObjectHideFlags: 0
