@@ -21556,6 +21556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114867225c1d5047a7149fb7bfd7ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _adUnitId: ca-app-pub-3940256099942544/6978759866
 --- !u!4 &1894429897
 Transform:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using GoogleMobileAds.Api;
 
 public class AdManager : MonoBehaviour
 {
-    private string _adUnitId = "ca-app-pub-3940256099942544/5354046379";
+    public string _adUnitId;
     private RewardedInterstitialAd _rewardedInterstitialAd;
     
     void Awake( )
