@@ -35,8 +35,8 @@ public class UIManager : MonoBehaviour
     public GameObject overPanel;
     public GameObject overText;
     public TMP_Text overScoreText;
-    public Image[] homeButtonSprites;
-    public Image[] restartButtonSprites;
+    public Image[] overButtonSprites;
+    public TMP_Text[] overTexts;
     public Transform homeButtonTransform;
     public Transform restartButtonTransform;
 
@@ -150,12 +150,14 @@ public class UIManager : MonoBehaviour
         overPanel.SetActive( true );
         var seq = DOTween.Sequence( );
         seq.AppendInterval( 1f );
-        seq.Append( overText.transform.DOMove( overText.transform.position + Vector3.up * 100f, 1f ) );
+        seq.Append( overText.transform.DOMove( overText.transform.position + Vector3.up * 150f, 1f ) );
         seq.Append( overScoreText.DOText( string.Format( "{0}점을 기록했어요.", GameManager.instance.score ), 1f ) );
-        seq.Join( homeButtonSprites[0].DOFade( 1f, 0.6f ) );
-        seq.Join( homeButtonSprites[1].DOFade( 1f, 0.6f ) );
-        seq.Join( restartButtonSprites[0].DOFade( 1f, 0.6f ) );
-        seq.Join( restartButtonSprites[1].DOFade( 1f, 0.6f ) );
+        seq.Join( overButtonSprites[0].DOFade( 1f, 0.6f ) );
+        seq.Join( overButtonSprites[1].DOFade( 1f, 0.6f ) );
+        seq.Join( overButtonSprites[2].DOFade( 1f, 0.6f ) );
+        seq.Join( overButtonSprites[3].DOFade( 1f, 0.6f ) );
+        seq.Join( overTexts[0].DOFade( 1f, 0.6f ) );
+        seq.Join( overTexts[1].DOFade( 1f, 0.6f ) );
         seq.Join( homeButtonTransform.DOMove( homeButtonTransform.position + Vector3.up * 20f, 0.4f ) );
         seq.Join( restartButtonTransform.DOMove( restartButtonTransform.position + Vector3.up * 20f, 0.4f ) );
         seq.Play( );
