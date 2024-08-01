@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public CinemachineVirtualCamera lobbyCam;
     public bool isMovable = false;
     public bool isOvered = false;
+    public bool isRevived = false;
 
     private void Awake( )
     {
@@ -82,6 +83,8 @@ public class GameManager : MonoBehaviour
 
     public void Revive( )
     {
+        isRevived = true;
+        isOvered = false;
         PlayerManager.instance.GetComponent<Transform>( ).position = GroundSpawner.instance.GetRandomGround( );
         PlayerManager.instance.GetComponent<Rigidbody>( ).constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         PlayerManager.instance.GetComponent<Rigidbody>( ).velocity = Vector3.zero;
@@ -89,12 +92,14 @@ public class GameManager : MonoBehaviour
         PlayerManager.instance.animator.Play( "Idle_A" );
         PlayerManager.instance.animator.Play( "Eyes_Blink" );
         PlayerManager.instance.character.transform.rotation = Quaternion.identity;
-        UIManager.instance.DeactiveOverPanel( );
+        UIManager.instance.ResetOverPanel( );
         gameOvercam.Follow = PlayerManager.instance.GetComponent<Transform>(  );
         gameOvercam.LookAt = PlayerManager.instance.GetComponent<Transform>(  );
         cam.Follow = PlayerManager.instance.GetComponent<Transform>( );
         cam.LookAt = PlayerManager.instance.GetComponent<Transform>( );
         gameOvercam.Priority = 1;
+        PlayerManager.instance.isMoving = false;
+        PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = true;
     }
     
     public void RestartGame( )

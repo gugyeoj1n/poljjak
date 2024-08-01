@@ -30,6 +30,7 @@ public class NumberCube : MonoBehaviour
     {
         Vector3 prevPos = this.transform.position;
         GroundSpawner.instance.SpawnHole( prevPos );
+        GroundSpawner.instance.onlyGround.Remove( prevPos - Vector3.up * 3f );
 
         Rigidbody rigidbody = GetComponent<Rigidbody>( );
         rigidbody.useGravity = true;

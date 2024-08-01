@@ -158,13 +158,28 @@ public class UIManager : MonoBehaviour
         seq.Join( overButtonSprites[3].DOFade( 1f, 0.6f ) );
         seq.Join( overTexts[0].DOFade( 1f, 0.6f ) );
         seq.Join( overTexts[1].DOFade( 1f, 0.6f ) );
-        seq.Join( homeButtonTransform.DOMove( homeButtonTransform.position + Vector3.up * 20f, 0.4f ) );
-        seq.Join( restartButtonTransform.DOMove( restartButtonTransform.position + Vector3.up * 20f, 0.4f ) );
+        if(!GameManager.instance.isRevived)
+        {
+            seq.Join( homeButtonTransform.DOMove( homeButtonTransform.position + Vector3.up * 20f, 0.4f ) );
+            seq.Join( restartButtonTransform.DOMove( restartButtonTransform.position + Vector3.up * 20f, 0.4f ) );
+        }
+        else
+        {
+            seq.Join( restartButtonTransform.DOMove( restartButtonTransform.position + Vector3.up * 90f, 0.4f ) );
+        }
         seq.Play( );
     }
 
-    public void DeactiveOverPanel( )
+    public void ResetOverPanel( )
     {
         overPanel.SetActive( false );
+        
+        overText.transform.position -= Vector3.up * 150f;
+        overScoreText.text = "";
+        homeButtonTransform.gameObject.SetActive( false );
+        overButtonSprites[2].DOFade( 0f, 0.1f );
+        overButtonSprites[3].DOFade( 0f, 0.1f );
+        overTexts[1].DOFade( 0f, 0.1f );
+        restartButtonTransform.transform.position -= Vector3.up * 20f;
     }
 }

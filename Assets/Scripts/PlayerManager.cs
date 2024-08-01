@@ -90,6 +90,8 @@ public class PlayerManager : MonoBehaviour
 
         transform.position = endPosition;
         animator.speed = 1f;
+
+        yield return new WaitForSeconds( 0.1f );
         isMoving = false;
     }
 
