@@ -23410,6 +23410,7 @@ MonoBehaviour:
   lobbyCam: {fileID: 1984272530}
   isMovable: 0
   isOvered: 0
+  isRevived: 0
 --- !u!4 &2011004411
 Transform:
   m_ObjectHideFlags: 0
