@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using DG.Tweening;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -39,6 +40,8 @@ public class PlayerManager : MonoBehaviour
     
     public void Move( Direction direction, int distance, float space )
     {
+        GameManager.instance.timerTween.Pause( );
+        GameManager.instance.colorTween.Pause( );
         GameManager.instance.IncreaseScore(  );
         UIManager.instance.SetNumberText(  );
         Vector3 directionVector;
@@ -92,6 +95,7 @@ public class PlayerManager : MonoBehaviour
         animator.speed = 1f;
 
         yield return new WaitForSeconds( 0.1f );
+        GameManager.instance.StartTimer(  );
         isMoving = false;
     }
 

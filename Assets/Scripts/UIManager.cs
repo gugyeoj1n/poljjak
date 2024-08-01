@@ -24,6 +24,11 @@ public class UIManager : MonoBehaviour
     public Button rightUpButton;
     public Button rightDownButton;
 
+    public Slider timerSlider;
+    public Image sliderImage;
+    public Color startColor;
+    public Color endColor;
+
     [Header( "Texts" )]
     public TMP_Text scoreText;
     public TMP_Text currentNumberText;
@@ -52,6 +57,8 @@ public class UIManager : MonoBehaviour
     
     void Start()
     {
+        sliderImage = timerSlider.transform.GetChild( 0 ).GetComponent<Image>( );
+        
         InitButtonInput( );
         InitNavigationButtons( );
         StartButtonAnimation( );
@@ -140,9 +147,9 @@ public class UIManager : MonoBehaviour
         seq2.Join( scoreText.transform.DOMove( scoreText.transform.position - Vector3.up * 125f, 2f ) );
         seq2.Join( currentNumberText.transform.DOMove( currentNumberText.transform.position - Vector3.up * 225f, 2f ) );
         seq2.Join( stopButton.transform.DOMove( stopButton.transform.position - Vector3.right * 100f, 2f ) );
-
+        seq2.Join( timerSlider.transform.DOMove( timerSlider.transform.position + Vector3.up * 550f, 2f ) );
         seq.Play( );
-        seq2.Play( );
+        seq2.Play( ).OnComplete( GameManager.instance.StartTimer );
     }
 
     public void SetOverPanel( )

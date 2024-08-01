@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class GameManager : MonoBehaviour
     public bool isOvered = false;
     public bool isRevived = false;
 
+    public Tween timerTween;
+    public Tween colorTween;
+    
     private void Awake( )
     {
         instance = this;
@@ -33,7 +37,19 @@ public class GameManager : MonoBehaviour
         CloudManager.instance.DestroyAllClouds(  );
         PlayerManager.instance.GetComponent<Rigidbody>( ).useGravity = true;
     }
-    
+
+    public void StartTimer( )
+    {
+        if(timerTween != null)
+            timerTween.Kill(  );
+        
+        UIManager.instance.timerSlider.value = 1f;
+        UIManager.instance.sliderImage.color = UIManager.instance.startColor;
+        
+        timerTween = UIManager.instance.timerSlider.DOValue( 0f, 5f ).OnComplete( GameOver );
+        colorTween = UIManager.instance.sliderImage.DOColor(UIManager.instance.endColor, 5f);
+    }
+
     public void IncreaseScore(  )
     {
         score += currentNumber;
@@ -61,8 +77,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine( DestroyPlayer( ) );
     }
     
-    
-
     private IEnumerator DestroyPlayer( )
     {
         float blendTime = Camera.main.GetComponent<CinemachineBrain>( ).m_DefaultBlend.BlendTime;
