@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class GroundSpawner : MonoBehaviour
 {
+    public Theme currentTheme;
+    
     public static GroundSpawner instance;
     public GameObject prefab;
     public GameObject holePrefab;
@@ -29,6 +31,8 @@ public class GroundSpawner : MonoBehaviour
 
     public void SpawnGround( )
     {
+        prefab = currentTheme.cube;
+        
         StartCoroutine( PlayerManager.instance.InitPlayerInput( ) );
         
         Vector3 gridCenter = new Vector3( ( gridSize - 1 ) * spacing / 2.0f, 0, ( gridSize - 1 ) * spacing / 2.0f );

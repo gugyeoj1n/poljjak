@@ -7,24 +7,36 @@ public class ShopManager : MonoBehaviour
 {
     private class Bundle
     {
-        public string name;
-        public Theme theme;
+        public string title;
+        public int type;
+        public bool isCash;
+        public Theme[] themes;
         public Character[] characters;
         public int price;
-        public int discountedPrice;
+        public int discount;
+        public string id;
     }
 
     private class Theme
     {
-        
+        public string title;
+        public int type;
+        public bool isCash;
+        public int price;
+        public int discount;
+        public string id;
     }
 
     private class Character
     {
-        
+        public string title;
+        public int type;
+        public bool isCash;
+        public int price;
+        public int discount;
+        public string id;
     }
     
-    // Start is called before the first frame update
     void Start()
     {
         GetShopData( );
@@ -39,6 +51,7 @@ public class ShopManager : MonoBehaviour
         foreach(DocumentSnapshot doc in snapshot.Documents)
         {
             Dictionary<string, object> item = doc.ToDictionary( );
+
             Debug.Log( item["s"] as string );
         }
     }
