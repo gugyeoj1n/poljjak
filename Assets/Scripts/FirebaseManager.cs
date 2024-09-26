@@ -43,4 +43,6 @@ public class FirebaseManager : MonoBehaviour
                 e.Message.Notification.Body);
         }
     }
+    
+    
 }
