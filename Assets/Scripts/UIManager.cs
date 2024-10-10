@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using Firebase;
+using Firebase.Auth;
 using UnityEngine.Networking;
 
 public class UIManager : MonoBehaviour
@@ -10,6 +12,8 @@ public class UIManager : MonoBehaviour
     [Header( "Lobby Objects" )]
     public Transform topBar;
     public Transform navigationBar;
+    public TMP_Text gem;
+    public TMP_Text coin;
     
     [Header( "Home UI Objects" )]
     public GameObject homeWindow;
@@ -188,5 +192,10 @@ public class UIManager : MonoBehaviour
         overButtonSprites[3].DOFade( 0f, 0.1f );
         overTexts[1].DOFade( 0f, 0.1f );
         restartButtonTransform.transform.position -= Vector3.up * 20f;
+    }
+
+    public void SetGemCoinText()
+    {
+        
     }
 }
