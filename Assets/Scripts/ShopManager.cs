@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Firebase.Firestore;
 
 public class ShopManager : MonoBehaviour
 {
@@ -44,15 +43,6 @@ public class ShopManager : MonoBehaviour
 
     async void GetShopData( )
     {
-        FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
-        CollectionReference colRef = db.Collection( "Shop" );
-        QuerySnapshot snapshot = await colRef.GetSnapshotAsync( );
-
-        foreach(DocumentSnapshot doc in snapshot.Documents)
-        {
-            Dictionary<string, object> item = doc.ToDictionary( );
-
-            Debug.Log( item["s"] as string );
-        }
+        
     }
 }
